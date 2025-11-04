@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оценка активности Болезни Крона</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            text-align: center;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        
+        .input-with-unit {
+            display: flex;
+            align-items: center;
+        }
+        
+        input[type="number"] {
+            width: 100px;
+            padding: 8px 12px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .unit {
+            margin-left: 10px;
+            color: #7f8c8d;
+        }
+        
+        .description {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        
+        .result {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .result.active {
+            display: block;
+        }
+        
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .interpretation {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .authors-info {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .authors-info h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .author {
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        .author:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .author-name {
+            font-weight: bold;
+            color: #34495e;
+        }
+        
+        .author-position {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        .contact-info {
+            margin-top: 5px;
+            font-size: 13px;
+        }
+        
+        .disclaimer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e74c3c;
+            font-size: 13px;
+            color: #e74c3c;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Оценка активности Болезни Крона</h1>
+        <div class="subtitle">
+            Международный индекс ультразвуковой сегментарной активности кишечного воспаления (IBUS-SAS)
+        </div>
+        
+        <form id="calculatorForm">
+            <div class="input-group">
+                <label for="bwt">Толщина стенки кишечника (BWT)</label>
+                <div class="input-with-unit">
+                    <input type="number" id="bwt" step="0.1" min="0" required>
+                    <span class="unit">ММ</span>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="ifat">Кишечный жир (i-fat)</label>
+                <input type="number" id="ifat" min="0" max="2" step="1" required>
+                <div class="description">
+                    0: Отсутствует (в норме)<br>
+                    1: Неопределенный (пограничный)<br>
+                    2: настоящее время (указывает на активность заболевания)
+                </div>
+                <div class="error" id="ifatError">Введите значение от 0 до 2</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="cds">Цветной доплеровский сигнал (CDS)</label>
+                <input type="number" id="cds" min="0" max="3" step="1" required>
+                <div class="description">
+                    0: Отсутствует (кровоток не обнаружен)<br>
+                    1: Короткие сигналы (минимальный кровоток)<br>
+                    2: Длительные сигналы внутри стенки кишечника (активное воспаление)<br>
+                    3: Длительные сигналы как внутри, так и снаружи стенки кишечника (сильная активность)
+                </div>
+                <div class="error" id="cdsError">Введите значение от 0 до 3</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="bws">Расслоение стенок кишечника (BWS)</label>
+                <input type="number" id="bws" min="0" max="3" step="1" required>
+                <div class="description">
+                    0: Нормальный (неповрежденные слои)<br>
+                    1: Неопределенный (незначительные изменения)<br>
+                    2: Очаговые изменения (&lt;3 см)<br>
+                    3: Значительные изменения (&gt;3 см)
+                </div>
+                <div class="error" id="bwsError">Введите значение от 0 до 3</div>
+            </div>
+            
+            <button type="submit">Рассчитать IBUS-SAS</button>
+        </form>
+        
+        <div class="result" id="result">
+            <div class="score">IBUS-SAS: <span id="scoreValue">0</span></div>
+            <div class="interpretation" id="interpretation"></div>
+        </div>
+    </div>
+
+    <div class="authors-info">
+        <h3>Информация об авторах</h3>
+        
+        <div class="author">
+            <div class="author-name">Шамсуллина Аделя Фанисовна</div>
+            <div class="author-position">Студентка факультета «Лечебное дело» Казанского государственного медицинского университета</div>
+            <div class="contact-info">
+                Тел.: <a href="tel:89172591734">8-917-259-17-34</a> | 
+                E-mail: <a href="mailto:shamsullina.af@mail.ru">shamsullina.af@mail.ru</a>
+            </div>
+        </div>
+        
+        <div class="author">
+            <div class="author-name">Мухаметова Диляра Дамировна</div>
+            <div class="author-position">Ассистент кафедры госпитальной терапии ФГБОУ ВО Казанского ГМУ Минздрава России, кандидат медицинских наук</div>
+        </div>
+        
+        <div class="disclaimer">
+            Калькулятор носит ознакомительный характер. Авторы не несут ответственности за принятые решения и их последствия.
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Получаем значения
+            const bwt = parseFloat(document.getElementById('bwt').value);
+            const ifat = parseInt(document.getElementById('ifat').value);
+            const cds = parseInt(document.getElementById('cds').value);
+            const bws = parseInt(document.getElementById('bws').value);
+            
+            // Проверяем валидность данных
+            let isValid = true;
+            
+            if (ifat < 0 || ifat > 2 || isNaN(ifat)) {
+                document.getElementById('ifatError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('ifatError').style.display = 'none';
+            }
+            
+            if (cds < 0 || cds > 3 || isNaN(cds)) {
+                document.getElementById('cdsError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('cdsError').style.display = 'none';
+            }
+            
+            if (bws < 0 || bws > 3 || isNaN(bws)) {
+                document.getElementById('bwsError').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('bwsError').style.display = 'none';
+            }
+            
+            if (isNaN(bwt) || bwt < 0) {
+                isValid = false;
+            }
+            
+            if (!isValid) return;
+            
+            // Рассчитываем результат
+            const score = 4 * bwt + 15 * ifat + 7 * cds + 4 * bws;
+            
+            // Отображаем результат
+            document.getElementById('scoreValue').textContent = score.toFixed(1);
+            
+            // Определяем интерпретацию
+            let interpretation = '';
+            if (score > 37.5) {
+                interpretation = 'Прогнозирует эндоскопическую активность с высокой чувствительностью (94%) и специфичностью (91%).';
+            } else if (score >= 22.8 && score <= 37.5) {
+                interpretation = 'Пограничный результат / легкое воспаление.';
+            } else if (score < 22.8) {
+                interpretation = 'Прогнозирует эндоскопическую ремиссию с чувствительностью 95% и специфичностью 83% и чувствительностью 91,4% и специфичностью 84,8%.';
+            }
+            
+            document.getElementById('interpretation').textContent = interpretation;
+            document.getElementById('result').classList.add('active');
+            
+            // Прокручиваем к результатам
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
