@@ -179,18 +179,41 @@
         a:hover {
             text-decoration: underline;
         }
+        
+        .language-switcher {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .lang-btn {
+            background-color: #95a5a6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .lang-btn:hover {
+            background-color: #7f8c8d;
+        }
     </style>
 </head>
 <body>
+    <div class="language-switcher">
+        <button class="lang-btn" id="langBtn">EN</button>
+    </div>
+    
     <div class="container">
-        <h1>Оценка активности Болезни Крона</h1>
-        <div class="subtitle">
+        <h1 id="mainTitle">Оценка активности Болезни Крона</h1>
+        <div class="subtitle" id="subTitle">
             Международный индекс ультразвуковой сегментарной активности кишечного воспаления (IBUS-SAS)
         </div>
         
         <form id="calculatorForm">
             <div class="input-group">
-                <label for="bwt">Толщина стенки кишечника (BWT)</label>
+                <label for="bwt" id="bwtLabel">Толщина стенки кишечника (BWT)</label>
                 <div class="input-with-unit">
                     <input type="number" id="bwt" step="0.1" min="0" required>
                     <span class="unit">ММ</span>
@@ -198,9 +221,9 @@
             </div>
             
             <div class="input-group">
-                <label for="ifat">Кишечный жир (i-fat)</label>
+                <label for="ifat" id="ifatLabel">Кишечный жир (i-fat)</label>
                 <input type="number" id="ifat" min="0" max="2" step="1" required>
-                <div class="description">
+                <div class="description" id="ifatDescription">
                     0: Отсутствует (в норме)<br>
                     1: Неопределенный (пограничный)<br>
                     2: настоящее время (указывает на активность заболевания)
@@ -209,9 +232,9 @@
             </div>
             
             <div class="input-group">
-                <label for="cds">Цветной доплеровский сигнал (CDS)</label>
+                <label for="cds" id="cdsLabel">Цветной доплеровский сигнал (CDS)</label>
                 <input type="number" id="cds" min="0" max="3" step="1" required>
-                <div class="description">
+                <div class="description" id="cdsDescription">
                     0: Отсутствует (кровоток не обнаружен)<br>
                     1: Короткие сигналы (минимальный кровоток)<br>
                     2: Длительные сигналы внутри стенки кишечника (активное воспаление)<br>
@@ -221,9 +244,9 @@
             </div>
             
             <div class="input-group">
-                <label for="bws">Расслоение стенок кишечника (BWS)</label>
+                <label for="bws" id="bwsLabel">Расслоение стенок кишечника (BWS)</label>
                 <input type="number" id="bws" min="0" max="3" step="1" required>
-                <div class="description">
+                <div class="description" id="bwsDescription">
                     0: Нормальный (неповрежденные слои)<br>
                     1: Неопределенный (незначительные изменения)<br>
                     2: Очаговые изменения (&lt;3 см)<br>
@@ -232,7 +255,7 @@
                 <div class="error" id="bwsError">Введите значение от 0 до 3</div>
             </div>
             
-            <button type="submit">Рассчитать IBUS-SAS</button>
+            <button type="submit" id="calculateBtn">Рассчитать IBUS-SAS</button>
         </form>
         
         <div class="result" id="result">
@@ -242,11 +265,11 @@
     </div>
 
     <div class="authors-info">
-        <h3>Информация об авторах</h3>
+        <h3 id="authorsTitle">Информация об авторах</h3>
         
         <div class="author">
             <div class="author-name">Шамсуллина Аделя Фанисовна</div>
-            <div class="author-position">Студентка факультета «Лечебное дело» Казанского государственного медицинского университета</div>
+            <div class="author-position" id="author1Position">Студентка факультета «Лечебное дело» Казанского государственного медицинского университета</div>
             <div class="contact-info">
                 Тел.: <a href="tel:89172591734">8-917-259-17-34</a> | 
                 E-mail: <a href="mailto:shamsullina.af@mail.ru">shamsullina.af@mail.ru</a>
@@ -255,15 +278,115 @@
         
         <div class="author">
             <div class="author-name">Мухаметова Диляра Дамировна</div>
-            <div class="author-position">Ассистент кафедры госпитальной терапии ФГБОУ ВО Казанского ГМУ Минздрава России, кандидат медицинских наук</div>
+            <div class="author-position" id="author2Position">Ассистент кафедры госпитальной терапии ФГБОУ ВО Казанского ГМУ Минздрава России, кандидат медицинских наук</div>
         </div>
         
-        <div class="disclaimer">
+        <div class="disclaimer" id="disclaimerText">
             Калькулятор носит ознакомительный характер. Авторы не несут ответственности за принятые решения и их последствия.
         </div>
     </div>
 
     <script>
+        // Тексты для разных языков
+        const translations = {
+            ru: {
+                mainTitle: "Оценка активности Болезни Крона",
+                subTitle: "Международный индекс ультразвуковой сегментарной активности кишечного воспаления (IBUS-SAS)",
+                bwtLabel: "Толщина стенки кишечника (BWT)",
+                ifatLabel: "Кишечный жир (i-fat)",
+                ifatDescription: `0: Отсутствует (в норме)<br>
+1: Неопределенный (пограничный)<br>
+2: настоящее время (указывает на активность заболевания)`,
+                cdsLabel: "Цветной доплеровский сигнал (CDS)",
+                cdsDescription: `0: Отсутствует (кровоток не обнаружен)<br>
+1: Короткие сигналы (минимальный кровоток)<br>
+2: Длительные сигналы внутри стенки кишечника (активное воспаление)<br>
+3: Длительные сигналы как внутри, так и снаружи стенки кишечника (сильная активность)`,
+                bwsLabel: "Расслоение стенок кишечника (BWS)",
+                bwsDescription: `0: Нормальный (неповрежденные слои)<br>
+1: Неопределенный (незначительные изменения)<br>
+2: Очаговые изменения (&lt;3 см)<br>
+3: Значительные изменения (&gt;3 см)`,
+                calculateBtn: "Рассчитать IBUS-SAS",
+                authorsTitle: "Информация об авторах",
+                author1Position: "Студентка факультета «Лечебное дело» Казанского государственного медицинского университета",
+                author2Position: "Ассистент кафедры госпитальной терапии ФГБОУ ВО Казанского ГМУ Минздрава России, кандидат медицинских наук",
+                disclaimerText: "Калькулятор носит ознакомительный характер. Авторы не несут ответственности за принятые решения и их последствия.",
+                ifatError: "Введите значение от 0 до 2",
+                cdsError: "Введите значение от 0 до 3",
+                bwsError: "Введите значение от 0 до 3",
+                interpretation1: "Прогнозирует эндоскопическую активность с высокой чувствительностью (94%) и специфичностью (91%).",
+                interpretation2: "Пограничный результат / легкое воспаление.",
+                interpretation3: "Прогнозирует эндоскопическую ремиссию с чувствительностью 95% и специфичностью 83%."
+            },
+            en: {
+                mainTitle: "Crohn's Disease Activity Assessment",
+                subTitle: "International Bowel Ultrasound Segmental Activity Score (IBUS-SAS)",
+                bwtLabel: "Bowel Wall Thickness (BWT)",
+                ifatLabel: "Mesenteric Fat (i-fat)",
+                ifatDescription: `0: Absent (normal)<br>
+1: Indeterminate (borderline)<br>
+2: Present (indicates disease activity)`,
+                cdsLabel: "Color Doppler Signal (CDS)",
+                cdsDescription: `0: Absent (no blood flow detected)<br>
+1: Short signals (minimal blood flow)<br>
+2: Long signals within the bowel wall (active inflammation)<br>
+3: Long signals both within and outside the bowel wall (severe activity)`,
+                bwsLabel: "Bowel Wall Stratification (BWS)",
+                bwsDescription: `0: Normal (preserved layers)<br>
+1: Indeterminate (minor changes)<br>
+2: Focal changes (&lt;3 cm)<br>
+3: Significant changes (&gt;3 cm)`,
+                calculateBtn: "Calculate IBUS-SAS",
+                authorsTitle: "Author Information",
+                author1Position: "Student of the Faculty of General Medicine, Kazan State Medical University",
+                author2Position: "Assistant Professor of the Department of Hospital Therapy, Kazan State Medical University, PhD in Medical Sciences",
+                disclaimerText: "The calculator is for informational purposes only. The authors are not responsible for decisions made and their consequences.",
+                ifatError: "Enter a value from 0 to 2",
+                cdsError: "Enter a value from 0 to 3",
+                bwsError: "Enter a value from 0 to 3",
+                interpretation1: "Predicts endoscopic activity with high sensitivity (94%) and specificity (91%).",
+                interpretation2: "Borderline result / mild inflammation.",
+                interpretation3: "Predicts endoscopic remission with sensitivity 95% and specificity 83%."
+            }
+        };
+
+        let currentLang = 'ru';
+
+        // Функция переключения языка
+        function switchLanguage() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            updateTexts();
+            document.getElementById('langBtn').textContent = currentLang === 'ru' ? 'EN' : 'RU';
+        }
+
+        // Функция обновления текстов
+        function updateTexts() {
+            const lang = translations[currentLang];
+            
+            document.getElementById('mainTitle').textContent = lang.mainTitle;
+            document.getElementById('subTitle').textContent = lang.subTitle;
+            document.getElementById('bwtLabel').textContent = lang.bwtLabel;
+            document.getElementById('ifatLabel').textContent = lang.ifatLabel;
+            document.getElementById('ifatDescription').innerHTML = lang.ifatDescription;
+            document.getElementById('cdsLabel').textContent = lang.cdsLabel;
+            document.getElementById('cdsDescription').innerHTML = lang.cdsDescription;
+            document.getElementById('bwsLabel').textContent = lang.bwsLabel;
+            document.getElementById('bwsDescription').innerHTML = lang.bwsDescription;
+            document.getElementById('calculateBtn').textContent = lang.calculateBtn;
+            document.getElementById('authorsTitle').textContent = lang.authorsTitle;
+            document.getElementById('author1Position').textContent = lang.author1Position;
+            document.getElementById('author2Position').textContent = lang.author2Position;
+            document.getElementById('disclaimerText').textContent = lang.disclaimerText;
+            document.getElementById('ifatError').textContent = lang.ifatError;
+            document.getElementById('cdsError').textContent = lang.cdsError;
+            document.getElementById('bwsError').textContent = lang.bwsError;
+        }
+
+        // Инициализация переключения языка
+        document.getElementById('langBtn').addEventListener('click', switchLanguage);
+
+        // Калькулятор
         document.getElementById('calculatorForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -310,13 +433,14 @@
             document.getElementById('scoreValue').textContent = score.toFixed(1);
             
             // Определяем интерпретацию
+            const lang = translations[currentLang];
             let interpretation = '';
             if (score > 37.5) {
-                interpretation = 'Прогнозирует эндоскопическую активность с высокой чувствительностью (94%) и специфичностью (91%).';
+                interpretation = lang.interpretation1;
             } else if (score >= 22.8 && score <= 37.5) {
-                interpretation = 'Пограничный результат / легкое воспаление.';
+                interpretation = lang.interpretation2;
             } else if (score < 22.8) {
-                interpretation = 'Прогнозирует эндоскопическую ремиссию с чувствительностью 95% и специфичностью 83%.';
+                interpretation = lang.interpretation3;
             }
             
             document.getElementById('interpretation').textContent = interpretation;
@@ -327,7 +451,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
