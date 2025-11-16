@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оценка активности Болезни Крона</title>
+    <title>Оценка ультразвуковой активности болезни Крона</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -206,14 +206,14 @@
     </div>
     
     <div class="container">
-        <h1 id="mainTitle">Оценка активности Болезни Крона</h1>
+        <h1 id="mainTitle">Оценка ультразвуковой активности болезни Крона</h1>
         <div class="subtitle" id="subTitle">
             Международный индекс ультразвуковой сегментарной активности кишечного воспаления (IBUS-SAS)
         </div>
         
         <form id="calculatorForm">
             <div class="input-group">
-                <label for="bwt" id="bwtLabel">Толщина стенки кишечника (BWT)</label>
+                <label for="bwt" id="bwtLabel">Толщина кишечной стенки (BWT)</label>
                 <div class="input-with-unit">
                     <input type="number" id="bwt" step="0.1" min="0" required>
                     <span class="unit">ММ</span>
@@ -221,34 +221,34 @@
             </div>
             
             <div class="input-group">
-                <label for="ifat" id="ifatLabel">Кишечный жир (i-fat)</label>
+                <label for="ifat" id="ifatLabel">Воспалительный жир брыжейки (i-fat)</label>
                 <input type="number" id="ifat" min="0" max="2" step="1" required>
                 <div class="description" id="ifatDescription">
                     0: Отсутствует (в норме)<br>
-                    1: Неопределенный (пограничный)<br>
-                    2: настоящее время (указывает на активность заболевания)
+                    1: Неопределенный<br>
+                    2: Присутствует
                 </div>
                 <div class="error" id="ifatError">Введите значение от 0 до 2</div>
             </div>
             
             <div class="input-group">
-                <label for="cds" id="cdsLabel">Цветной доплеровский сигнал (CDS)</label>
+                <label for="cds" id="cdsLabel">Цветовой доплеровский сигнал (CDS)</label>
                 <input type="number" id="cds" min="0" max="3" step="1" required>
                 <div class="description" id="cdsDescription">
                     0: Отсутствует (кровоток не обнаружен)<br>
-                    1: Короткие сигналы (минимальный кровоток)<br>
-                    2: Длительные сигналы внутри стенки кишечника (активное воспаление)<br>
-                    3: Длительные сигналы как внутри, так и снаружи стенки кишечника (сильная активность)
+                    1: Короткие сигналы (минимальное усиление кровотока)<br>
+                    2: Длинные сигналы внутри кишечной стенки (умеренное усиление кровотока)<br>
+                    3: Длинные сигналы внутри и за пределами кишечной стенки (выраженное усиление кровотока)
                 </div>
                 <div class="error" id="cdsError">Введите значение от 0 до 3</div>
             </div>
             
             <div class="input-group">
-                <label for="bws" id="bwsLabel">Расслоение стенок кишечника (BWS)</label>
+                <label for="bws" id="bwsLabel">Дифференциация слоев кишечной стенки (BWS)</label>
                 <input type="number" id="bws" min="0" max="3" step="1" required>
                 <div class="description" id="bwsDescription">
-                    0: Нормальный (неповрежденные слои)<br>
-                    1: Неопределенный (незначительные изменения)<br>
+                    0: Норма<br>
+                    1: Неопределенно<br>
                     2: Очаговые изменения (&lt;3 см)<br>
                     3: Значительные изменения (&gt;3 см)
                 </div>
@@ -290,21 +290,21 @@
         // Тексты для разных языков
         const translations = {
             ru: {
-                mainTitle: "Оценка активности Болезни Крона",
+                mainTitle: "Оценка ультразвуковой активности болезни Крона",
                 subTitle: "Международный индекс ультразвуковой сегментарной активности кишечного воспаления (IBUS-SAS)",
-                bwtLabel: "Толщина стенки кишечника (BWT)",
-                ifatLabel: "Кишечный жир (i-fat)",
+                bwtLabel: "Толщина кишечной стенки (BWT)",
+                ifatLabel: "Воспалительный жир брыжейки (i-fat)",
                 ifatDescription: `0: Отсутствует (в норме)<br>
-1: Неопределенный (пограничный)<br>
-2: настоящее время (указывает на активность заболевания)`,
-                cdsLabel: "Цветной доплеровский сигнал (CDS)",
+1: Неопределенный<br>
+2: Присутствует`,
+                cdsLabel: "Цветовой доплеровский сигнал (CDS)",
                 cdsDescription: `0: Отсутствует (кровоток не обнаружен)<br>
-1: Короткие сигналы (минимальный кровоток)<br>
-2: Длительные сигналы внутри стенки кишечника (активное воспаление)<br>
-3: Длительные сигналы как внутри, так и снаружи стенки кишечника (сильная активность)`,
-                bwsLabel: "Расслоение стенок кишечника (BWS)",
-                bwsDescription: `0: Нормальный (неповрежденные слои)<br>
-1: Неопределенный (незначительные изменения)<br>
+1: Короткие сигналы (минимальное усиление кровотока)<br>
+2: Длинные сигналы внутри кишечной стенки (умеренное усиление кровотока)<br>
+3: Длинные сигналы внутри и за пределами кишечной стенки (выраженное усиление кровотока)`,
+                bwsLabel: "Дифференциация слоев кишечной стенки (BWS)",
+                bwsDescription: `0: Норма<br>
+1: Неопределенно<br>
 2: Очаговые изменения (&lt;3 см)<br>
 3: Значительные изменения (&gt;3 см)`,
                 calculateBtn: "Рассчитать IBUS-SAS",
@@ -339,8 +339,8 @@
 3: Extensive changes (&gt;3 cm)`,
                 calculateBtn: "Calculate IBUS-SAS",
                 authorsTitle: "Author Information",
-                author1Position: "Student of the Faculty of General Medicine, Kazan State Medical University",
-                author2Position: "Assistant Professor of the Department of Hospital Therapy, Kazan State Medical University, PhD in Medical Sciences",
+                author1Position: "Student of the General Medicine Faculty, Kazan State Medical University",
+                author2Position: "Assistant of Professor of the Hospital Therapy Department, Kazan State Medical University, PhD in Medical Sciences",
                 disclaimerText: "The calculator is for informational purposes only. The authors are not responsible for decisions made and their consequences.",
                 ifatError: "Enter a value from 0 to 2",
                 cdsError: "Enter a value from 0 to 3",
@@ -452,5 +452,6 @@
     </script>
 </body>
 </html>
+
 
 
