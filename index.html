@@ -126,6 +126,7 @@
             font-size: 14px;
             color: #555;
             line-height: 1.6;
+            margin-bottom: 20px;
         }
         
         .authors-info h3 {
@@ -169,6 +170,37 @@
             color: #e74c3c;
             text-align: center;
             font-style: italic;
+        }
+        
+        .references {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .references h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 16px;
+        }
+        
+        .reference-list {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        
+        .reference-item {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .reference-item:last-child {
+            margin-bottom: 0;
         }
         
         a {
@@ -268,21 +300,39 @@
         <h3 id="authorsTitle">Информация об авторах</h3>
         
         <div class="author">
-            <div class="author-name">Шамсуллина Аделя Фанисовна</div>
-            <div class="author-position" id="author1Position">Студентка факультета «Лечебное дело» Казанского государственного медицинского университета</div>
+            <div class="author-name" id="author1Name">Shamsullina Adelya Fanisovna</div>
+            <div class="author-position" id="author1Position">Student of the General Medicine Faculty, Kazan State Medical University</div>
             <div class="contact-info">
-                Тел.: <a href="tel:89172591734">8-917-259-17-34</a> | 
+                Tel.: <a href="tel:89172591734">8-917-259-17-34</a> | 
                 E-mail: <a href="mailto:shamsullina.af@mail.ru">shamsullina.af@mail.ru</a>
             </div>
         </div>
         
         <div class="author">
-            <div class="author-name">Мухаметова Диляра Дамировна</div>
-            <div class="author-position" id="author2Position">Ассистент кафедры госпитальной терапии ФГБОУ ВО Казанского ГМУ Минздрава России, кандидат медицинских наук</div>
+            <div class="author-name" id="author2Name">Mukhametova Dilyara Damirovna</div>
+            <div class="author-position" id="author2Position">Assistant of Professor of the Hospital Therapy Department, Kazan State Medical University, PhD in Medical Sciences</div>
         </div>
         
         <div class="disclaimer" id="disclaimerText">
             Калькулятор носит ознакомительный характер. Авторы не несут ответственности за принятые решения и их последствия.
+        </div>
+    </div>
+
+    <div class="references">
+        <h3 id="referencesTitle">References</h3>
+        <div class="reference-list">
+            <div class="reference-item">
+                1. Novak K. L., Nylund K., Maaser C. Expert Consensus on Optimal Acquisition and Development of the International Bowel Ultrasound Segmental Activity Score [IBUS-SAS]: A Reliability and Inter-rater Variability Study on Intestinal Ultrasonography in Crohn's Disease. Journal of Crohn's and Colitis. 2021;15(4):609–616. doi: 10.1093/ecco-jcc/jjaa216.
+            </div>
+            <div class="reference-item">
+                2. Dragoni G, Gottin M, Innocenti T, Lynch EN, Bagnoli S, Macrì G, Bonanomi AG, Orlandini B, Rogai F, Milani S, Galli A, Milla M, Biagini MR. Correlation of Ultrasound Scores with Endoscopic Activity in Crohn's Disease: A Prospective Exploratory Study. J Crohns Colitis. 2023 Oct 20;17(9):1387-1394. doi: 10.1093/ecco-jcc/jjad068.
+            </div>
+            <div class="reference-item">
+                3. Allocca M, Dell'Avalle C, Zilli A, Furfaro F, D'Amico F, Jairath V, Rubin DT, Peyrin-Biroulet L, Fiorino G, Danese S. Ultrasound remission after biologic induction and long-term endoscopic remission in Crohn's disease: a prospective cohort study. EClinicalMedicine. 2024 Mar 21;71:102559. doi: 10.1016/j.eclinm.2024.102559.
+            </div>
+            <div class="reference-item">
+                4. Long X, Peng C, Zhang X, Kong W, Gong L. Different imaging techniques' diagnostic efficacy for Crohn's disease activity and external validation and comparison of MDCTAs, SES-CD and IBUSSAS. BMC Gastroenterol. 2024 Aug 20;24(1):277. doi: 10.1186/s12876-024-03376-8.
+            </div>
         </div>
     </div>
 
@@ -309,9 +359,12 @@
 3: Значительные изменения (&gt;3 см)`,
                 calculateBtn: "Рассчитать IBUS-SAS",
                 authorsTitle: "Информация об авторах",
-                author1Position: "Студентка факультета «Лечебное дело» Казанского государственного медицинского университета",
-                author2Position: "Ассистент кафедры госпитальной терапии ФГБОУ ВО Казанского ГМУ Минздрава России, кандидат медицинских наук",
+                author1Name: "Shamsullina Adelya Fanisovna",
+                author1Position: "Student of the General Medicine Faculty, Kazan State Medical University",
+                author2Name: "Mukhametova Dilyara Damirovna",
+                author2Position: "Assistant of Professor of the Hospital Therapy Department, Kazan State Medical University, PhD in Medical Sciences",
                 disclaimerText: "Калькулятор носит ознакомительный характер. Авторы не несут ответственности за принятые решения и их последствия.",
+                referencesTitle: "References",
                 ifatError: "Введите значение от 0 до 2",
                 cdsError: "Введите значение от 0 до 3",
                 bwsError: "Введите значение от 0 до 3",
@@ -320,28 +373,31 @@
                 interpretation3: "Прогнозирует эндоскопическую ремиссию с чувствительностью 95% и специфичностью 83%."
             },
             en: {
-                mainTitle: "Crohn's Disease Activity Assessment",
+                mainTitle: "Crohn's Disease Ultrasound Activity Assessment",
                 subTitle: "International Bowel Ultrasound Segmental Activity Score (IBUS-SAS)",
                 bwtLabel: "Bowel Wall Thickness (BWT)",
-                ifatLabel: "Intestinal Fat (i-fat)",
+                ifatLabel: "Inflammatory Mesenteric Fat (i-fat)",
                 ifatDescription: `0: Absent (normal)<br>
-1: Uncertain (borderline)<br>
-2: Present (indicative of disease activity)`,
+1: Indeterminate<br>
+2: Present`,
                 cdsLabel: "Color Doppler Signal (CDS)",
                 cdsDescription: `0: Absent (no blood flow detected)<br>
-1: Short signals (minimal blood flow)<br>
-2: Long signals inside the bowel wall (active inflammation)<br>
-3: Long signals both inside and outside the bowel wall (severe activity)`,
+1: Short signals (minimal blood flow enhancement)<br>
+2: Long signals within the bowel wall (moderate blood flow enhancement)<br>
+3: Long signals within and beyond the bowel wall (marked blood flow enhancement)`,
                 bwsLabel: "Bowel Wall Stratification (BWS)",
-                bwsDescription: `0: Normal (intact layers)<br>
-1: Uncertain (minor changes)<br>
+                bwsDescription: `0: Normal<br>
+1: Indeterminate<br>
 2: Focal changes (&lt;3 cm)<br>
 3: Extensive changes (&gt;3 cm)`,
                 calculateBtn: "Calculate IBUS-SAS",
                 authorsTitle: "Author Information",
+                author1Name: "Shamsullina Adelya Fanisovna",
                 author1Position: "Student of the General Medicine Faculty, Kazan State Medical University",
+                author2Name: "Mukhametova Dilyara Damirovna",
                 author2Position: "Assistant of Professor of the Hospital Therapy Department, Kazan State Medical University, PhD in Medical Sciences",
                 disclaimerText: "The calculator is for informational purposes only. The authors are not responsible for decisions made and their consequences.",
+                referencesTitle: "References",
                 ifatError: "Enter a value from 0 to 2",
                 cdsError: "Enter a value from 0 to 3",
                 bwsError: "Enter a value from 0 to 3",
@@ -375,9 +431,12 @@
             document.getElementById('bwsDescription').innerHTML = lang.bwsDescription;
             document.getElementById('calculateBtn').textContent = lang.calculateBtn;
             document.getElementById('authorsTitle').textContent = lang.authorsTitle;
+            document.getElementById('author1Name').textContent = lang.author1Name;
             document.getElementById('author1Position').textContent = lang.author1Position;
+            document.getElementById('author2Name').textContent = lang.author2Name;
             document.getElementById('author2Position').textContent = lang.author2Position;
             document.getElementById('disclaimerText').textContent = lang.disclaimerText;
+            document.getElementById('referencesTitle').textContent = lang.referencesTitle;
             document.getElementById('ifatError').textContent = lang.ifatError;
             document.getElementById('cdsError').textContent = lang.cdsError;
             document.getElementById('bwsError').textContent = lang.bwsError;
@@ -452,6 +511,3 @@
     </script>
 </body>
 </html>
-
-
-
